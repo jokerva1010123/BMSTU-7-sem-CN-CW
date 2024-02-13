@@ -15,7 +15,7 @@
 #define NOT_FOUND               404
 #define METHOD_NOT_ALLOWED      405
 
-#define STATIC_ROOT             "/home/vanh/Desktop/iu7-cn-cp/static"
+#define STATIC_ROOT             "/home/vanh/Desktop/BMSTU-7-sem-CN-CW/static"
 
 void send_directory_listing(int client_socket, const char* current_path, const char* directory_path);
 void handle_client(int client_socket);

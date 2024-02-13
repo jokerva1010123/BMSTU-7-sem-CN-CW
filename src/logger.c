@@ -11,7 +11,7 @@ void log_message(LogLevel level, const char* format, ...) {
 
     FILE* log_file = fopen(LOG_FILE, "a");
     if (log_file == NULL) {
-        perror("Error opening log file");
+        perror("Error opening log file\n");
         return;
     }
 

@@ -6,7 +6,7 @@ void handle_client(int client_socket) {
 
     // Получение запроса
     if (recv(client_socket, buffer, sizeof(buffer), 0) <= 0) {
-        perror("Receive failed");
+        perror("Receive failed\n");
         return;
     }
 
@@ -143,10 +143,8 @@ void send_file(int client_socket, const char* file_path, const char* method) {
     // Отправка содержимого файла
     char buffer[1024];
     size_t bytes_read;
-    while ((bytes_read = fread(buffer, 1, sizeof(buffer), file)) > 0) {
+    while ((bytes_read = fread(buffer, 1, sizeof(buffer), file)) > 0) 
         send(client_socket, buffer, bytes_read, 0);
-    }
-
     fclose(file);
 }
 
@@ -154,11 +152,8 @@ void send_error(int client_socket, int status_code) {
     char response[1024];
     sprintf(response, "HTTP/1.1 %d\r\nContent-Length: 0\r\nContent-Type: text/html\r\n\r\n", status_code);
 
-    log_message(LOG_INFO, "ERROR %s", response);
-    log_message(LOG_DEBUG, "Debug message: %d", 42);
-    // log_message(LOG_WARNING, "Something unexpected happened!");
-    // log_message(LOG_ERROR, "Error occurred: %s", "File not found");
+    log_message(LOG_INFO, "ERROR %s\n", response);
+    log_message(LOG_DEBUG, "Debug message: %d\n", 42);
 
     send(client_socket, response, strlen(response), 0);
-    // log_message("Sent forbidden error response to client");
 }

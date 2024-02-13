@@ -16,7 +16,7 @@
 #include "http_handler.h"
 #include "logger.h"
 
-#define PORT            1243
+#define PORT            1237
 #define MAX_CLIENTS     1000
 #define NUM_CHILDREN    5
 

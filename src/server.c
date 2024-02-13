@@ -6,7 +6,7 @@ void start_server(void) {
 
     // Создание сокета
     if ((server_socket = socket(AF_INET, SOCK_STREAM, 0)) == -1) {
-        perror("Socket creation failed");
+        perror("Socket creation failed\n");
         exit(EXIT_FAILURE);
     }
 
@@ -17,13 +17,13 @@ void start_server(void) {
 
     // Привязка сокета
     if (bind(server_socket, (struct sockaddr*)&server_addr, sizeof(server_addr)) == -1) {
-        perror("Bind failed");
+        perror("Bind failed\n");
         exit(EXIT_FAILURE);
     }
 
     // Прослушивание входящих подключений
     if (listen(server_socket, SOMAXCONN) == -1) {
-        perror("Listen failed");
+        perror("Listen failed\n");
         exit(EXIT_FAILURE);
     }
 
@@ -57,7 +57,7 @@ void start_server(void) {
                 // Использование select() для обработки нескольких соединений
                 activity = select(max_fd + 1, &readfds, NULL, NULL, NULL); // блокировка + вовзрат кол-ва дескрипторов, на которых произошли события
                 if ((activity < 0) && (errno != EINTR)) {
-                    perror("Select error");
+                    perror("Select error\n");
                     exit(EXIT_FAILURE);
                 }
 
@@ -65,7 +65,7 @@ void start_server(void) {
                 if (FD_ISSET(server_socket, &readfds)) {
                     addr_len = sizeof(client_addr);
                     if ((client_socket = accept(server_socket, (struct sockaddr*)&client_addr, (socklen_t*)&addr_len)) == -1) {
-                        perror("Accept failed");
+                        perror("Accept failed\n");
                         continue;
                     }
 
@@ -95,7 +95,7 @@ void start_server(void) {
             // Родительский процесс
         }
         else {
-            perror("Fork failed");
+            perror("Fork failed\n");
             exit(EXIT_FAILURE);
         }
     }
